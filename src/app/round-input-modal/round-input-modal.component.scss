@@ -1,17 +1,144 @@
 ion-input {
-    width: 100px;
-    margin-left: 10px;
-  }
-  
+  width: 100px;
+  margin-left: 10px;
+}
 
-  ion-item.selected-winner {
-    --background: var(--ion-color-success-tint);
-    --color: var(--ion-color-success-contrast);
-    border-radius: 8px;
-    transition: background 0.2s ease;
+/* Winner highlight (used if you keep ion-item list version) */
+ion-item.selected-winner {
+  --background: var(--ion-color-success-shade);
+  --color: var(--ion-color-success-contrast);
+  border-radius: 10px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+ion-item.selected-winner:active {
+  transform: scale(0.98);
+}
+
+/* General spacing */
+.item.sc-ion-label-md-h,
+.item .sc-ion-label-md-h {
+  margin: 10px !important;
+}
+
+/* 🎮 Game Card Styling */
+.game-container {
+  background: linear-gradient(145deg, #4caf50, #2e7d32);
+  border-radius: 22px;
+  padding: 20px;
+  text-align: center;
+  max-width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+
+  /* Light overlay for a soft glow */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.15), transparent 70%);
+    pointer-events: none;
+  }
+}
+
+/* 🎯 Header Section */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+
+  .face {
+    font-size: 36px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
   }
 
-  .item.sc-ion-label-md-h, .item .sc-ion-label-md-h {
- 
-    margin: 10px !important;
+  .face.winner {
+    transform: scale(1.2) rotate(-10deg);
+    filter: drop-shadow(0 0 5px #ffeb3b);
+  }
+
+  .display {
+    background: #ffffffee;
+    border-radius: 12px;
+    padding: 10px 24px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #1b5e20;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ➕ Expression Display */
+.expression {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 18px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1b5e20;
+  min-height: 1.8em;
+}
+
+/* 🔢 Keypad */
+.keypad {
+  margin-top: 8px;
+
+  .keypad-grid {
+    ion-col {
+      padding: 6px; /* this adds gap between buttons */
+    }
+  }
+
+  .keypad-actions {
+    margin-top: 10px;
+    border-radius: 20px;
+
+    ion-col {
+      padding: 6px;
+    }
+  }
+
+  ion-button {
+    border-radius: 14px;
+    font-weight: 600;
+    width: 100%;
+    height: 48px;
+  }
+}
+
+
+/* 🏆 Winner Button */
+.winner-btn {
+  margin-top: 12px;
+  font-weight: bold;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(90deg, #ffb300, #ffca28);
+  color: #1b1b1b;
+
+  &.ion-color-success {
+    background: linear-gradient(90deg, #00c853, #64dd17);
+    color: #fff;
+  }
+}
+
+/* 📱 Footer Save Button */
+ion-footer ion-toolbar {
+  background: linear-gradient(90deg, #43a047, #2e7d32);
+}
+
+ion-footer ion-button {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }

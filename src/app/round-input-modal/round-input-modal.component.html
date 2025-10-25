@@ -7,31 +7,64 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<swiper-container
+  navigation="true"
+  pagination="true"
+  space-between="10"
+  centered-slides="true"
+  loop="true"
+  autoplay="2500"
+>
+  <swiper-slide *ngFor="let player of players">
+    <div class="game-container">
+      <div class="header">
+        <div class="player-name">{{ player }}</div>
+        <div class="display">
+          <span [class.negative]="calcRes(player) < 0">
+            {{ calcRes(player) }}
+          </span>
+        </div>
+      </div>
 
-  <ion-list>
-    <ion-radio-group [(ngModel)]="winner">
-      <ion-item 
+      <div class="expression">
+        {{ exp(player) }}
+      </div>
+
+      <div class="keypad">
+        <ion-grid class="keypad-grid">
+          <ion-row>
+            <ion-col
+              size="4"
+              *ngFor="let num of numbers"
+              (click)="addToExpression(player, num)"
+            >
+              <ion-button style="border-radius: 2000px;" expand="block" color="dark" class="rounded-2xl">{{ num }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       
+        <ion-row class="keypad-actions">
+          <ion-col>
+            <ion-button expand="block" color="medium" (click)="clear(player)">C</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" color="success" (click)="calculate()">✔</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+      
+
+      <ion-button
+        expand="block"
+        color="{{ winner === player ? 'success' : 'primary' }}"
         (click)="winner = player"
-      *ngFor="let player of players">
-        <ion-label>{{ player }}</ion-label>
-        <ion-radio slot="start" [value]="player"></ion-radio>
-
-        <ion-input
-          (click)="$event.stopPropagation()"
-          type="number"
-          inputmode="numeric"
-          placeholder="Score"
-          [(ngModel)]="scores[player]"
-          [disabled]="winner === player"
-          class="ion-text-end"
-        ></ion-input>
-      </ion-item>
-    </ion-radio-group>
-  </ion-list>
-
-</ion-content>
+        class="winner-btn"
+      >
+        {{ winner === player ? '🏆 Winner' : 'Select Winner' }}
+      </ion-button>
+    </div>
+  </swiper-slide>
+</swiper-container>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
