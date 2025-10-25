@@ -23,7 +23,7 @@ ion-item.selected-winner:active {
 
 /* 🎮 Game Card Styling */
 .game-container {
-  background: linear-gradient(145deg, #4caf50, #2e7d32);
+  background: linear-gradient(145deg, #4caf4f42, #2e7d3236);
   border-radius: 22px;
   padding: 20px;
   text-align: center;
@@ -48,34 +48,34 @@ ion-item.selected-winner:active {
   }
 }
 
-/* 🎯 Header Section */
 .header {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 14px;
-
-  .face {
-    font-size: 36px;
-    margin-right: 10px;
-    transition: transform 0.3s ease;
-  }
-
-  .face.winner {
-    transform: scale(1.2) rotate(-10deg);
-    filter: drop-shadow(0 0 5px #ffeb3b);
-  }
-
-  .display {
-    background: #ffffffee;
-    border-radius: 12px;
-    padding: 10px 24px;
-    font-size: 30px;
-    font-weight: 700;
-    color: #1b5e20;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  }
+  justify-content: space-between; /* name left, score right */
+  align-items: center; /* vertically center both */
+  padding: 8px 12px;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
+
+.player-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.display {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: var(--ion-color-primary);
+  min-width: 60px; /* prevents layout shift if number width changes */
+  text-align: right;
+}
+
+.display .negative {
+  color: var(--ion-color-danger);
+}
+
 
 /* ➕ Expression Display */
 .expression {
@@ -141,4 +141,23 @@ ion-footer ion-button {
   font-weight: 700;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+
+swiper-container,
+swiper-slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+swiper-slide {
+  transition: transform 0.3s ease;
+}
+
+
+swiper-container {
+  contain: paint;
 }

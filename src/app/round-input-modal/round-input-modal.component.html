@@ -8,12 +8,11 @@
 </ion-header>
 
 <swiper-container
-  navigation="true"
-  pagination="true"
-  space-between="10"
-  centered-slides="true"
-  loop="true"
-  autoplay="2500"
+navigation="true"
+pagination="true"
+space-between="10"
+centered-slides="true"
+loop="true"
 >
   <swiper-slide *ngFor="let player of players">
     <div class="game-container">
@@ -25,6 +24,7 @@
           </span>
         </div>
       </div>
+      
 
       <div class="expression">
         {{ exp(player) }}
