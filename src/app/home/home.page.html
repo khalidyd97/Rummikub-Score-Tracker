@@ -1,20 +1,55 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar git add .>
+    <ion-title align="center" class="text-center text-white">Rummikub Score Tracker</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content class="ion-padding">
+  <div *ngIf="gameData.players.length" class="grid grid-cols-2 gap-4">
+    <ion-card
+    
+    (click)="openPlayerHistory(p)"
+    *ngFor="let p of gameData.players"
+              [ngClass]="{
+                'border-4 border-yellow-400 bg-yellow-100': getTotals()[p] === maxTotal(),
+                'bg-[#2e2e30] text-white': getTotals()[p] !== maxTotal()
+              }"
+              class="rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6 flex flex-col items-center justify-center text-center">
+      
+      <ion-card-title
+      [ngClass]="{
+        'text-black': getTotals()[p] === maxTotal(),
+        'text-white': getTotals()[p] !== maxTotal()
+      }"
+      class="text-lg font-bold text-gray-800 mb-2 truncate">{{ p }}</ion-card-title>
+      
+      <ion-card-content>
+        <p 
+        
+        [ngClass]="{
+          'text-black': getTotals()[p] === maxTotal(),
+          'text-white': getTotals()[p] !== maxTotal()
+        }"
+        style="font-size: 30px;" class="text-gray-900  font-extrabold">{{ getTotals()[p] }}</p>
+      
+      </ion-card-content>
+      
+    </ion-card>
   </div>
+  
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button expand="block" color="success" (click)="openPlayerSetup()">Start New Game</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button expand="block" color="tertiary" [disabled]="!gameData.players.length" (click)="openRoundInput()">Add Round</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button expand="block" color="danger" (click)="resetGame()">Reset Game</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

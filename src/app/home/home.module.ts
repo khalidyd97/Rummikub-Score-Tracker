@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { RoundInputModalComponent } from '../round-input-modal/round-input-modal.component';
+import { PlayerSetupModalComponent } from '../player-setup-modal/player-setup-modal.component';
 
 
 @NgModule({
@@ -12,8 +14,14 @@ import { HomePageRoutingModule } from './home-routing.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    RoundInputModalComponent,
+    PlayerSetupModalComponent,
+
   ],
-  declarations: [HomePage]
+  declarations: [HomePage,
+
+
+  ]
 })
 export class HomePageModule {}

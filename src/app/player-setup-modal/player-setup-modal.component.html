@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Setup Players</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label>Number of Players</ion-label>
+    <ion-select [(ngModel)]="numPlayers" (ionChange)="syncPlayerNames()">
+      <ion-select-option *ngFor="let n of playerOptions" [value]="n">{{ n }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    @for (name of playerNames; track $index) {
+      <ion-item>
+        <ion-label position="stacked">Player {{ $index + 1 }} Name</ion-label>
+        <ion-input [(ngModel)]="playerNames[$index]" placeholder="Enter name"></ion-input>
+      </ion-item>
+
+    }
+
+  </ion-list>
+
+  <ion-button expand="block" color="success" (click)="startGame()">Start Game</ion-button>
+</ion-content>

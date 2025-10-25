@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>New Round</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Cancel</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label>Winner</ion-label>
+    <ion-select [(ngModel)]="winner" placeholder="Select winner">
+      <ion-select-option *ngFor="let player of players" [value]="player">
+        {{ player }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngFor="let player of players">
+    <ion-label>{{ player }}</ion-label>
+    <ion-input
+      type="number"
+      placeholder="Score"
+      [(ngModel)]="scores[player]"
+      [disabled]="player === winner"
+    ></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" color="success" (click)="saveRound()">Save Round</ion-button>
+</ion-content>

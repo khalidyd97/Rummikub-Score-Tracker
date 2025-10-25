@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="text-center">{{ playerName }} - Rounds History</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="rounds.length; else noRounds">
+    <ion-item *ngFor="let r of rounds">
+      <ion-label>
+        <h2>Round {{ r.round }}</h2>
+        <p>Score: {{ r.scores[playerName] }}</p>
+        <p>Winner: {{ getWinner(r.scores) }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ng-template #noRounds>
+    <p class="text-center text-gray-500">No rounds played yet.</p>
+  </ng-template>
+</ion-content>
