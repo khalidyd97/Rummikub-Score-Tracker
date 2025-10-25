@@ -1,0 +1,7 @@
+{
+  "name": "rummikub",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
