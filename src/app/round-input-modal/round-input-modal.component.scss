@@ -3,3 +3,15 @@ ion-input {
     margin-left: 10px;
   }
   
+
+  ion-item.selected-winner {
+    --background: var(--ion-color-success-tint);
+    --color: var(--ion-color-success-contrast);
+    border-radius: 8px;
+    transition: background 0.2s ease;
+  }
+
+  .item.sc-ion-label-md-h, .item .sc-ion-label-md-h {
+ 
+    margin: 10px !important;
+}

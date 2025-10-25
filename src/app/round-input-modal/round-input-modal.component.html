@@ -8,24 +8,33 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-item>
-    <ion-label>Winner</ion-label>
-    <ion-select [(ngModel)]="winner" placeholder="Select winner">
-      <ion-select-option *ngFor="let player of players" [value]="player">
-        {{ player }}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
 
-  <ion-item *ngFor="let player of players">
-    <ion-label>{{ player }}</ion-label>
-    <ion-input
-      type="number"
-      placeholder="Score"
-      [(ngModel)]="scores[player]"
-      [disabled]="player === winner"
-    ></ion-input>
-  </ion-item>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="winner">
+      <ion-item 
+      
+        (click)="winner = player"
+      *ngFor="let player of players">
+        <ion-label>{{ player }}</ion-label>
+        <ion-radio slot="start" [value]="player"></ion-radio>
 
-  <ion-button expand="block" color="success" (click)="saveRound()">Save Round</ion-button>
+        <ion-input
+          (click)="$event.stopPropagation()"
+          type="number"
+          inputmode="numeric"
+          placeholder="Score"
+          [(ngModel)]="scores[player]"
+          [disabled]="winner === player"
+          class="ion-text-end"
+        ></ion-input>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button expand="block" color="success" (click)="saveRound()">Save Round</ion-button>
+  </ion-toolbar>
+</ion-footer>
