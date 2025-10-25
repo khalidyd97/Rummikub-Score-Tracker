@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { PlayerSetupModalComponent } from '../player-setup-modal/player-setup-modal.component';
 import { RoundInputModalComponent } from '../round-input-modal/round-input-modal.component';
 import { GameData, Round, ScoreStorageService } from '../ScoreStorageService';
@@ -33,6 +33,7 @@ export class HomePage implements OnInit {
   
     private modalCtrl: ModalController,
     private storage:Storage,
+    private alertCtrl: AlertController
 
   ) {
 
@@ -53,6 +54,48 @@ export class HomePage implements OnInit {
     });
     await modal.present();
   }
+
+
+
+  async confirmReset() {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm Reset',
+      message: 'Are you sure you want to reset the game? All data will be lost.',
+      buttons: [
+        { text: 'Cancel', role: 'cancel' },
+        {
+          text: 'Reset',
+          role: 'destructive',
+          handler: () => {
+            this.resetGame();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async confirmStartNewGame() {
+    const alert = await this.alertCtrl.create({
+      header: 'Start New Game',
+      message: 'Are you sure you want to start a new game? Current game will be cleared.',
+      buttons: [
+        { text: 'Cancel', role: 'cancel' },
+        {
+          text: 'Start',
+          role: 'confirm',
+          handler: () => {
+            this.openPlayerSetup();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+
 
   getTotals(): { [player: string]: number } {
     const totals: any = {};
@@ -107,7 +150,7 @@ export class HomePage implements OnInit {
   
 
   async resetGame() {
-    this.gameData = { players: [], rounds: [] };
-    await this.storage.clear();
+    this.gameData = { players: this.gameData.players, rounds: [] };
+    await this.storage.set('rummikub_game_data',this.gameData)
   }
 }

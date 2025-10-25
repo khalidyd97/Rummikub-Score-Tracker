@@ -10,10 +10,15 @@
 <ion-content class="ion-padding">
   <div class="flex flex-col justify-center items-center h-full w-full max-w-md mx-auto">
     <!-- Full-width select -->
-    <ion-item class="w-full">
-      <ion-label>Number of Players</ion-label>
+    <ion-item
+      button
+      class="w-full"
+      (click)="playerSelect.open()"
+    >
+      <ion-label slot="start">Number of Players</ion-label>
       <ion-select
-        class="w-full"
+        #playerSelect
+        slot="end"
         interface="popover"
         [(ngModel)]="numPlayers"
         (ionChange)="syncPlayerNames()"
