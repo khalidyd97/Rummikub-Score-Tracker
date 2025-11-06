@@ -5,6 +5,7 @@ import { RoundInputModalComponent } from '../round-input-modal/round-input-modal
 import { GameData, Round, ScoreStorageService } from '../ScoreStorageService';
 import { Storage } from '@ionic/storage-angular';
 import { PlayerHistoryModalComponent } from '../player-history-modal/player-history-modal.component';
+import { RoundHistoryModalComponent } from '../round-history-modal/round-history-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -148,6 +149,18 @@ export class HomePage implements OnInit {
   
 
   
+  async openRoundHistory() {
+    const modal = await this.modalCtrl.create({
+      component: RoundHistoryModalComponent,
+      componentProps: {
+        rounds: this.gameData.rounds,
+        deleteRoundCallback: (index: number) => {
+          this.gameData.rounds.splice(index, 1); // delete round
+        },
+      },
+    });
+    await modal.present();
+  }
 
   async resetGame() {
     this.gameData = { players: this.gameData.players, rounds: [] };

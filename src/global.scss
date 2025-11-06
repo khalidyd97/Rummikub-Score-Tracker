@@ -10,7 +10,21 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
+
+:root {
+  color-scheme: light !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light !important;
+  }
+}
+
 @import "tailwindcss";
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
 
 @import "@ionic/angular/css/core.css";
 
@@ -48,4 +62,7 @@
     --ion-background-color: #ffffff;
     --ion-text-color: #111827;
   }
+
+
+  
   
