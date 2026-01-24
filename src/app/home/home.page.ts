@@ -109,19 +109,27 @@ export class HomePage implements OnInit {
     return totals;
   }
 
-  async openPlayerSetup() {
+  async openPlayerSetup(isEdit = false) {
     const modal = await this.modalCtrl.create({
       component: PlayerSetupModalComponent,
+      componentProps: {
+        existingPlayers: isEdit ? this.gameData.players : []
+      },
     });
+  
     modal.onDidDismiss().then(async (result) => {
-      if (result.data) {
-        const players = result.data.players || [];
-        this.gameData = { players, rounds: [] };
-        await this.storage.set('rummikub_game_data',this.gameData);
+      if (result.data?.players) {
+        this.gameData = {
+          players: result.data.players,
+          rounds: [] // reset rounds safely
+        };
+        await this.storage.set('rummikub_game_data', this.gameData);
       }
     });
+  
     await modal.present();
   }
+  
 
 
   async openRoundInput() {
@@ -166,4 +174,25 @@ export class HomePage implements OnInit {
     this.gameData = { players: this.gameData.players, rounds: [] };
     await this.storage.set('rummikub_game_data',this.gameData)
   }
+
+  async confirmEditPlayers() {
+    const alert = await this.alertCtrl.create({
+      header: 'Edit Players',
+      message:
+        'Editing players will reset all rounds. Do you want to continue?',
+      buttons: [
+        { text: 'Cancel', role: 'cancel' },
+        {
+          text: 'Edit',
+          role: 'confirm',
+          handler: () => {
+            this.openPlayerSetup(true);
+          },
+        },
+      ],
+    });
+  
+    await alert.present();
+  }
+  
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 
@@ -10,30 +10,41 @@ import { IonicModule, ModalController } from '@ionic/angular';
   templateUrl: './player-setup-modal.component.html',
   styleUrls: ['./player-setup-modal.component.scss'],
 })
-export class PlayerSetupModalComponent {
+export class PlayerSetupModalComponent implements OnInit {
+
+  @Input() existingPlayers: string[] = [];
+
   numPlayers = 2;
   playerOptions = [2, 3, 4, 5, 6];
-  playerNames: string[] = ['', '']; // start with 2 empty names
+  playerNames: string[] = [];
+
+  isEditMode = false;
 
   constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {
-    this.syncPlayerNames();
+    if (this.existingPlayers.length) {
+      this.isEditMode = true;
+      this.playerNames = [...this.existingPlayers];
+      this.numPlayers = this.playerNames.length;
+    } else {
+      this.playerNames = ['', ''];
+      this.syncPlayerNames();
+    }
   }
 
   syncPlayerNames() {
-    // Add empty slots if array too short
     while (this.playerNames.length < this.numPlayers) {
       this.playerNames.push('');
     }
-    // Remove extra slots if array too long
     while (this.playerNames.length > this.numPlayers) {
       this.playerNames.pop();
     }
   }
 
-  startGame() {
-    this.modalCtrl.dismiss({ players: this.playerNames });
+  submit() {
+    const cleanedNames = this.playerNames.map(n => n.trim());
+    this.modalCtrl.dismiss({ players: cleanedNames });
   }
 
   cancel() {

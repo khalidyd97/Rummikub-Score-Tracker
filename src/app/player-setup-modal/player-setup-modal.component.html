@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Setup Players</ion-title>
+    <ion-title>
+      {{ isEditMode ? 'Edit Players' : 'Setup Players' }}
+    </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cancel()">Cancel</ion-button>
     </ion-buttons>
@@ -9,12 +11,9 @@
 
 <ion-content class="ion-padding">
   <div class="flex flex-col justify-center items-center h-full w-full max-w-md mx-auto">
-    <!-- Full-width select -->
-    <ion-item
-      button
-      class="w-full"
-      (click)="playerSelect.open()"
-    >
+
+    <!-- Number of players -->
+    <ion-item button class="w-full" (click)="playerSelect.open()">
       <ion-label slot="start">Number of Players</ion-label>
       <ion-select
         #playerSelect
@@ -23,7 +22,11 @@
         [(ngModel)]="numPlayers"
         (ionChange)="syncPlayerNames()"
       >
-        <ion-select-option *ngFor="let n of playerOptions" [value]="n">{{ n }}</ion-select-option>
+        <ion-select-option
+          *ngFor="let n of playerOptions"
+          [value]="n">
+          {{ n }}
+        </ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -31,17 +34,27 @@
     <ion-list class="w-full">
       @for (name of playerNames; track $index) {
         <ion-item class="w-full">
-          <ion-label position="stacked">Player {{ $index + 1 }} Name</ion-label>
-          <ion-input [(ngModel)]="playerNames[$index]" placeholder="Enter name"></ion-input>
+          <ion-label position="stacked">
+            Player {{ $index + 1 }} Name
+          </ion-label>
+          <ion-input
+            [(ngModel)]="playerNames[$index]"
+            placeholder="Enter name">
+          </ion-input>
         </ion-item>
       }
     </ion-list>
+
   </div>
 </ion-content>
 
-<!-- Fixed bottom button -->
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-    <ion-button expand="block" color="success" (click)="startGame()">Start Game</ion-button>
+    <ion-button
+      expand="block"
+      color="success"
+      (click)="submit()">
+      {{ isEditMode ? 'Save Changes' : 'Start Game' }}
+    </ion-button>
   </ion-toolbar>
 </ion-footer>

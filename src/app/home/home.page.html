@@ -42,15 +42,38 @@
 
 <ion-footer>
   <ion-toolbar>
+
+    <!-- Start New Game: always visible -->
     <ion-buttons slot="start">
-      <ion-button expand="block"  (click)="confirmStartNewGame()">Start New Game</ion-button>
+      <ion-button expand="block" (click)="confirmStartNewGame()">
+        Start New Game
+      </ion-button>
     </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button expand="block"  [disabled]="!gameData.players.length" (click)="openRoundInput()">Add Round</ion-button>
+    
+
+    <!-- Add Round: only when players exist -->
+    <ion-buttons slot="primary" *ngIf="gameData.players.length">
+      <ion-button expand="block" (click)="openRoundInput()">
+        Add Round
+      </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button expand="block" color="danger" (click)="confirmReset()">Reset Game</ion-button>
-      <ion-button expand="block"  (click)="openRoundHistory()">history</ion-button>
+
+    <!-- History + Reset: only when a game exists -->
+    <ion-buttons slot="end" *ngIf="gameData.players.length">
+      <ion-button
+        expand="block"
+        *ngIf="gameData.rounds.length"
+        (click)="openRoundHistory()">
+        History
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        color="danger"
+        (click)="confirmReset()">
+        Reset Game
+      </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
 </ion-footer>
